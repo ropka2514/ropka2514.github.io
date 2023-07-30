@@ -19,6 +19,7 @@ function fetchViews() {
         // Load the main view by default
         changeView('main');
     });
+    console.log(document.views);
 }
 
 function changeView(viewId) {
