@@ -1,5 +1,5 @@
 document.selectedView = '';
-views = {};
+document.views = {};
 
 window.onload = function() {
     fetchViews();
@@ -22,6 +22,9 @@ function fetchViews() {
 }
 
 function changeView(viewId) {
+    console.log(document.selectedView);
+    console.log(document.views);
+    console.log(viewId);
     const contentDiv = document.getElementById('content');
     const target = document.getElementById(viewId);
     const current = document.getElementById(document.selectedView);
