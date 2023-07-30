@@ -1,4 +1,40 @@
 document.selectedView = '';
+views = {};
+
+window.onload = function() {
+    fetchViews();
+} 
+
+function fetchViews() {
+    fetch('views.html')
+    .then(response => response.text())
+    .then(data => {
+        let parser = new DOMParser();
+        let htmlDoc = parser.parseFromString(data, 'text/html');
+        views = {
+            'main': htmlDoc.getElementById('main').innerHTML,
+            'portfolio': htmlDoc.getElementById('portfolio').innerHTML,
+            'game': htmlDoc.getElementById('game').innerHTML,
+        };
+        // Load the main view by default
+        changeView('main');
+    });
+}
+
+function changeView(viewId) {
+    const contentDiv = document.getElementById('content');
+    const target = document.getElementById(viewId);
+    const current = document.getElementById(document.selectedView);
+
+    if (document.selectedView !== '') {
+        current.classList.remove('selected');
+        current.classList.add('hidden');
+    }
+    document.selectedView = viewId;
+    target.classList.remove('hidden');
+    target.classList.add('selected');
+    contentDiv.innerHTML = views[viewId];
+}
 
 function changeView(viewId) {
     if (document.selectedView === viewId) {
